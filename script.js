@@ -1,17 +1,20 @@
 (function game() {
 
+    setup();
     function createPlayer(name, score, turns, playerIcon) {
         return { name, score, turns, playerIcon };
     };
 
     const player1 = createPlayer("Player1", 0, [], "X");
-    const player2 = createPlayer("Player2", 0, [], "Y");
-
-
+    const player2 = createPlayer("Player2", 0, [], "O");
 
     let counter = 0;
     let turnsTaken = 0;
     let isGameRunning = true;
+    let currentPlayer = player1;
+
+
+
 
     const winCodes = [
         [1, 2, 3],
@@ -24,38 +27,53 @@
         [3, 5, 7]
     ];
 
-    const gameBoard = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    const squares = [0];
+    function setup() {
+        const gameBoard = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        const squares = [0];
+        for (let i = 1; i <= gameBoard.length; i++) {
+            let div = document.getElementById(i);
+            squares.push(div);
+            inputHandler(div);
+        }
+    };
 
-    for (let i = 1; i <= gameBoard.length; i++) {
-        let div = document.getElementById(i);
-        squares.push(div);
+    function inputHandler(div) {
         div.addEventListener("click", function () {
-            div.innerText = "X";
-            console.log("BONK")
+            div.innerText = currentPlayer.playerIcon;
+            console.log();
+            let number = parseInt(div.getAttribute("id"));
+            // currentPlayer.turns.push(div.getAttribute("id"));
+            currentPlayer.turns.push(number);
+            // console.log(currentPlayer);
+            console.log(player1)
+            console.log(player2)
+            checkWin(currentPlayer.turns);
+            currentPlayer = currentPlayer === player1 ? player2 : player1;
+
+
         }, { once: true });
     }
 
     function checkWin(arr) {
-
         for (let i = 0; i < winCodes.length; i++) {
             counter = 0;
             for (let j = 0; j < arr.length; j++) {
                 if (winCodes[i].includes(arr[j])) {
                     counter++;
                     if (counter === 3) {
-                        isGameRunning = false;
-                        console.log("WINNER IS X")
-                        player1.turns = [];
-                        player2.turns = [];
-                        console.log(player1.turns);
+                        // isGameRunning = false;
+                        console.log(`${currentPlayer.playerIcon} is the WINNER!`);
+                        // player1.turns = [];
+                        // player2.turns = [];
                         return true;
                     }
                 }
             }
-            return false;
         }
+        return false;
     }
+
+
 
     // renderConsole();
 
