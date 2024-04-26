@@ -7,6 +7,8 @@
     const player1 = createPlayer("Player1", 0, [], "X");
     const player2 = createPlayer("Player2", 0, [], "Y");
 
+
+
     let counter = 0;
     let turnsTaken = 0;
     let isGameRunning = true;
@@ -23,6 +25,16 @@
     ];
 
     const gameBoard = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    const squares = [0];
+
+    for (let i = 1; i <= gameBoard.length; i++) {
+        let div = document.getElementById(i);
+        squares.push(div);
+        div.addEventListener("click", function () {
+            div.innerText = "X";
+            console.log("BONK")
+        }, { once: true });
+    }
 
     function checkWin(arr) {
 
@@ -41,47 +53,34 @@
                     }
                 }
             }
-
             return false;
         }
-
     }
 
-    renderConsole();
+    // renderConsole();
 
     // while (isGameRunning) {
 
-    turn = parseInt(prompt("Player X Turn"));
-    gameBoard.splice(turn - 1, 1, "X");
-    player1.turns.push(turn);
-    console.log(`player turns ${player1.turns}`)
-    checkWin(player1.turns);
-    renderConsole();
+    // turn = parseInt(prompt("Player X Turn"));
+    // gameBoard.splice(turn - 1, 1, "X");
+    // player1.turns.push(turn);
+    // console.log(`player turns ${player1.turns}`)
+    // checkWin(player1.turns);
+    // renderConsole();
 
+    // turn = parseInt(prompt("Player X Turn"));
+    // gameBoard.splice(turn - 1, 1, "X");
+    // player1.turns.push(turn);
+    // console.log(`player turns ${player1.turns}`)
+    // checkWin(player1.turns);
+    // renderConsole();
 
-    turn = parseInt(prompt("Player X Turn"));
-    gameBoard.splice(turn - 1, 1, "X");
-    player1.turns.push(turn);
-    console.log(`player turns ${player1.turns}`)
-    checkWin(player1.turns);
-    renderConsole();
-
-    turn = parseInt(prompt("Player X Turn"));
-    gameBoard.splice(turn - 1, 1, "X");
-    player1.turns.push(turn);
-    console.log(`player turns ${player1.turns}`)
-    checkWin(player1.turns);
-    renderConsole();
-
-
-
-
-
-
-    // if (isGameRunning === false) {
-    //     return;
-    // }
-    // }
+    // turn = parseInt(prompt("Player X Turn"));
+    // gameBoard.splice(turn - 1, 1, "X");
+    // player1.turns.push(turn);
+    // console.log(`player turns ${player1.turns}`)
+    // checkWin(player1.turns);
+    // renderConsole();
 
     function renderConsole() {
         console.log(gameBoard[0], gameBoard[1], gameBoard[2])

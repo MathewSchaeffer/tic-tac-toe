@@ -1,0 +1,13 @@
+#gameboard {
+    display: flex;
+}
+
+.box div {
+    border: 1px solid black;
+    min-width: 50px;
+    height: 50px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
