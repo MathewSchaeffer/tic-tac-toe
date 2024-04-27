@@ -9,12 +9,7 @@
     const player2 = createPlayer("Player2", 0, [], "O");
 
     let counter = 0;
-    let turnsTaken = 0;
-    let isGameRunning = true;
     let currentPlayer = player1;
-
-
-
 
     const winCodes = [
         [1, 2, 3],
@@ -42,9 +37,7 @@
             div.innerText = currentPlayer.playerIcon;
             console.log();
             let number = parseInt(div.getAttribute("id"));
-            // currentPlayer.turns.push(div.getAttribute("id"));
             currentPlayer.turns.push(number);
-            // console.log(currentPlayer);
             console.log(player1)
             console.log(player2)
             checkWin(currentPlayer.turns);
@@ -55,20 +48,30 @@
     }
 
     function checkWin(arr) {
+        let totalTurns = player1.turns.length + player2.turns.length;
+        console.log(totalTurns);
         for (let i = 0; i < winCodes.length; i++) {
             counter = 0;
             for (let j = 0; j < arr.length; j++) {
                 if (winCodes[i].includes(arr[j])) {
                     counter++;
                     if (counter === 3) {
-                        // isGameRunning = false;
                         console.log(`${currentPlayer.playerIcon} is the WINNER!`);
-                        // player1.turns = [];
-                        // player2.turns = [];
                         return true;
                     }
+
                 }
             }
+            // if (totalTurns === 9 && counter !== 3) {
+            //     console.log(counter);
+            //     console.log(totalTurns);
+            //     console.log("DRAW");
+            //     return false;
+            // }
+        }
+        if (totalTurns === 9) {
+            console.log("DRAW");
+            return false;
         }
         return false;
     }
