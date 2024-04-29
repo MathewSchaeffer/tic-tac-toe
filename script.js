@@ -1,5 +1,7 @@
 (function game() {
 
+    let div = "";
+
     setup();
 
     function createPlayer(name, score, turns, playerIcon) {
@@ -11,6 +13,7 @@
 
     let counter = 0;
     let currentPlayer = player1;
+    let isGameOver = false;
 
     const winCodes = [
         [1, 2, 3],
@@ -27,19 +30,22 @@
         const gameBoard = [1, 2, 3, 4, 5, 6, 7, 8, 9];
         const squares = [0];
         for (let i = 1; i <= gameBoard.length; i++) {
-            let div = document.getElementById(i);
+            div = document.getElementById(i);
             squares.push(div);
             inputHandler(div);
+
         }
     };
 
     function inputHandler(div) {
-        div.addEventListener("click", function () {
-            div.innerText = currentPlayer.playerIcon;
-            let number = parseInt(div.getAttribute("id"));
-            currentPlayer.turns.push(number);
-            checkWin(currentPlayer.turns);
-            currentPlayer = currentPlayer === player1 ? player2 : player1;
+        div.addEventListener("click", function eventHandler() {
+            if (!isGameOver) {
+                div.innerText = currentPlayer.playerIcon;
+                let number = parseInt(div.getAttribute("id"));
+                currentPlayer.turns.push(number);
+                checkWin(currentPlayer.turns);
+                currentPlayer = currentPlayer === player1 ? player2 : player1;
+            }
         }, { once: true });
     }
 
@@ -52,6 +58,7 @@
                     counter++;
                     if (counter === 3) {
                         console.log(`${currentPlayer.playerIcon} is the WINNER!`);
+                        isGameOver = true;
                         return true;
                     }
                 }
@@ -59,6 +66,7 @@
         }
         if (totalTurns === 9) {
             console.log("DRAW");
+            isGameOver = true;
             return false;
         }
         return false;
