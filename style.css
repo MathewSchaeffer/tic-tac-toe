@@ -1,5 +1,6 @@
 #gameboard {
     display: flex;
+    border-radius: 10px;
 }
 
 .box div {
@@ -10,4 +11,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 5px;
+    font-size: 1.75em;
+    font-weight: 600;
+}
+
+.X {
+    background-color: lightsalmon;
+}
+
+.O {
+    background-color: lightcyan;
 }

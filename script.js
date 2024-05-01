@@ -1,7 +1,5 @@
 (function game() {
 
-    let div = "";
-
     setup();
 
     function createPlayer(name, score, turns, playerIcon) {
@@ -27,20 +25,29 @@
     ];
 
     function setup() {
+        let div;
         const gameBoard = [1, 2, 3, 4, 5, 6, 7, 8, 9];
         const squares = [0];
         for (let i = 1; i <= gameBoard.length; i++) {
             div = document.getElementById(i);
             squares.push(div);
             inputHandler(div);
-
         }
     };
+
+    function reset() {
+        let removeClass = document.querySelectorAll(".box div");
+        for (let el of removeClass) {
+            el.classList.contains("X") ? el.classList.remove("X") : el.classList.remove("O");
+            el.innerText = "";
+        }
+    }
 
     function inputHandler(div) {
         div.addEventListener("click", function eventHandler() {
             if (!isGameOver) {
                 div.innerText = currentPlayer.playerIcon;
+                div.classList.add(currentPlayer.playerIcon);
                 let number = parseInt(div.getAttribute("id"));
                 currentPlayer.turns.push(number);
                 checkWin(currentPlayer.turns);
@@ -59,6 +66,7 @@
                     if (counter === 3) {
                         console.log(`${currentPlayer.playerIcon} is the WINNER!`);
                         isGameOver = true;
+                        reset();
                         return true;
                     }
                 }
